@@ -33,7 +33,7 @@
     "public": false
   },
   "user": {
-    "dataSource": "db",
+    "dataSource": "mysqlDs",
     "public": true
   },
   "team": {
@@ -49,6 +49,10 @@
     "public": true
   },
   "acter": {
+    "dataSource": "mysqlDs",
+    "public": true
+  },
+  "yonghu": {
     "dataSource": "mysqlDs",
     "public": true
   }

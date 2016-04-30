@@ -5,8 +5,34 @@
  * @version $Id$
  */
 module.exports=function(app){
-	// var User=app.models.user,
+	var User=app.models.yonghu,
+		mysqlDs=app.dataSources.mysqlDs;
 	//     Team=app.models.team;
+
+
+	// mysqlDs.automigrate('yonghu',function(err){
+	// 	if(err){
+	// 		return;
+	// 	}
+
+		// var user_data=[
+		//     {username: 'John', email: 'john@doe.com', password: 'opensesame'},
+		//     {username: 'Jane', email: 'jane@doe.com', password: 'opensesame'},
+		//     {username: 'Bob', email: 'bob@projects.com', password: 'opensesame'}
+		//  ];
+
+		// User.create(user_data,function(err,results){
+		// 	if(err){
+		// 		console.log(err);
+		// 		return;
+		// 	}
+
+		// 	console.log(results);
+
+		// })
+
+
+	// })
 
 
 	// var user_data=[
@@ -14,6 +40,16 @@ module.exports=function(app){
 	//     {username: 'Jane', email: 'jane@doe.com', password: 'opensesame'},
 	//     {username: 'Bob', email: 'bob@projects.com', password: 'opensesame'}
 	//   ];
+
+	// User.create(user_data,function(err,results){
+	// 	if(err){
+	// 		console.log(err);
+	// 		return;
+	// 	}
+
+	// 	console.log(results);
+
+	// })
 
 	// User.create(user_data,function(err,users){
 	// 	if(err) return err;

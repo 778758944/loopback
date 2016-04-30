@@ -8,9 +8,16 @@
 <meta name="keywords" content="">
 <link href="" rel="stylesheet">
 <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+<script src="./ajax.js"></script>
 </head>
 <body>
     <h1>CURD</h1>
+    <form action='/api/films' method='POST' id="form1" enctype="multipart/form-data">
+        <input type='text' name='name'/>
+        <input type='text' name='money'/>
+        <input type='file' name='pic'/>
+        <input type="submit" value="提交"/>
+    </form>
     <input type='text' id="name"/>
     <input type='text' id="money"/>
     <button id="add">提交</button>
@@ -51,9 +58,16 @@
     	add.onclick=function(){
     		var name=document.getElementById("name").value;
     		var money=document.getElementById("money").value;
-    		$.post('/addfilm',{name:name,money:money},function(res){
-    			console.log(res);
-    		})
+    		ajax({
+                url:"/test/upload",
+                success:function(res){
+                    console.log(res);
+                },
+                method:'POST',
+                responseType:'json',
+                data:'form1',
+                multi:true
+            })
     	}
 
     	update.onclick=function(){

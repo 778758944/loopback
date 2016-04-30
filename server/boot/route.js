@@ -4,12 +4,16 @@
  * @date    2016-04-28 15:47:29
  * @version $Id$
  */
+
+var formidable=require('formidable');
+var fs=require('fs');
 module.exports=function(app){
 	var film=app.models.film;
 	var mysqlDs=app.dataSources.mysqlDs;
 	var route=app.loopback.Router();
+	var connector=mysqlDs.connector;
 
-	// mysqlDs.automigrate('acter',function(err){
+	// mysqlDs.automigrate('film',function(err){
 	// 	if(err) console.log(err);
 	// })
 
@@ -19,15 +23,20 @@ module.exports=function(app){
 				name:req.body.name,
 				money:req.body.money
 			};
+			// console.log(req.params);
+			// console.log(req.body);
 
 
 			// var data={name:"ttnk",money:100};
-			film.create(data,function(err,result){
-				if(err) return err;
-				res.json({
-					code:0,
-					data:result
-				})
+			// film.create(data,function(err,result){
+			// 	if(err) return err;
+			// 	res.json({
+			// 		code:0,
+			// 		data:result
+			// 	})
+			// })
+			res.json({
+				code:0
 			})
 		});
 
@@ -110,20 +119,20 @@ module.exports=function(app){
 
 	//事务
 	// var task;
-	var transcation=film.beginTransaction({
-		isolationLevel:film.Transaction.REPEATABLE_READ,
-		timeout:10000
-	},function(err,tx){
-		if(err) console.log(err);
-		film.create({name:"film5",money:500},{transcation:tx},function(err,film){
-			film.updateAttributes({money:200},{transcation:tx},function(err,film){
-				if(err) console.log(err);
-				tx.rollback(function(err){
-					if(err) console.log(err);
-				});
-			})
-		})
-	});
+	// var transcation=film.beginTransaction({
+	// 	isolationLevel:film.Transaction.REPEATABLE_READ,
+	// 	timeout:10000
+	// },function(err,tx){
+	// 	if(err) console.log(err);
+	// 	film.create({name:"film5",money:500},{transcation:tx},function(err,film){
+	// 		film.updateAttributes({money:200},{transcation:tx},function(err,film){
+	// 			if(err) console.log(err);
+	// 			tx.rollback(function(err){
+	// 				if(err) console.log(err);
+	// 			});
+	// 		})
+	// 	})
+	// });
 
 	// transcation.then(function(){
 	// 	console.log('lll')
@@ -147,6 +156,30 @@ module.exports=function(app){
 		})
 	})
 
+	// route.post('/api/film/all');
+
+	connector.observe('before execute',function(ctx,next){
+		console.log("connector");
+		next();
+	})
+
+	app.post('/test/upload',function(req,res){
+		var form=new formidable.IncomingForm();
+		form.parse(req,function(err,fields,files){
+			var path=files.pic.path;
+			var name=files.pic.name;
+			console.log(name);
+			var read=fs.createReadStream(path);
+			var path2=__dirname.replace('/server/boot','/client/images/'+name);
+			console.log(path2);
+
+			var write=fs.createWriteStream(path2);
+			read.pipe(write);
+			res.json({
+				path:'/images/'+name
+			})
+		})
+	})
 	
 
 	app.use(route);
