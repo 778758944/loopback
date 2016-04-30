@@ -1,0 +1,27 @@
+{
+  "name": "film",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "money": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "acters": {
+      "type": "hasMany",
+      "model": "acter",
+      "foreignKey": "ownerId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

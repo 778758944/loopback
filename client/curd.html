@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+    <h1>CURD</h1>
+    <input type='text' id="name"/>
+    <input type='text' id="money"/>
+    <button id="add">提交</button>
+    <p>
+    	<input type='text' id="idd"/>
+    	<input type="text" id="newv"/>
+    	<button id='update'>修改</button>
+    	<button id='del'>删除</button>
+    </p>
+
+    <p>
+
+    	<button id="filter">find(filter)</button>
+    	<button id='include'>find(include)</button>
+    	<button id='limit'>find(limit)</button>
+    	<button id='where'>find(where)</button>
+    </p>
+
+    <p>
+    	<button id="commit">commit</button>
+    	<button id="rollback">rollback</button>
+    </p>
+
+    <p>
+    	<button id="testapi">test api</button>
+    </p>
+    <script>
+    	var add=document.getElementById('add');
+    	var update=document.getElementById("update");
+    	var del=document.getElementById("del"),
+    		include=document.getElementById('include'),
+    		limit=document.getElementById('limit'),
+    		where=document.getElementById('where'),
+    		commit=document.getElementById("commit"),
+    		rollback=document.getElementById('rollback'),
+    		testapi=document.getElementById('testapi'),
+    		filter=document.getElementById('filter');
+    	add.onclick=function(){
+    		var name=document.getElementById("name").value;
+    		var money=document.getElementById("money").value;
+    		$.post('/addfilm',{name:name,money:money},function(res){
+    			console.log(res);
+    		})
+    	}
+
+    	update.onclick=function(){
+    		var id=document.getElementById('idd').value;
+    		var newv=document.getElementById('newv').value;
+    		$.post('/updatefilm',{id:id,newv:newv},function(res){
+
+    		});
+    	}
+
+    	del.onclick=function(){
+    		var id=document.getElementById('idd').value;
+    		$.post('/deletefilm',{id:id},function(res){
+    			
+    		})
+    	}
+
+    	filter.onclick=function(){
+    		var id=document.getElementById('idd').value;
+    		$.post('/findfilter',{money:id},function(res){
+
+    		})
+    	}
+
+    	include.onclick=function(){
+    		$.post('/findinclude',{},function(res){
+
+    		})
+    	}
+
+    	limit.onclick=function(){
+    		$.post('/findlimit',{},function(res){
+
+    		})
+    	}
+
+    	where.onclick=function(){
+    		$.post('/findwhere',{},function(res){
+
+    		})
+    	}
+
+    	commit.onclick=function(){
+    		$.post('/commit',{},function(){
+
+    		})
+    	}
+
+
+    	rollback.onclick=function(){
+    		$.post("/rollback",{},function(){
+
+    		})
+    	}
+
+
+    	testapi.onclick=function(){
+    		$.post('/api/films/all',function(res){
+    			console.log(typeof res.greeting);
+    		})
+    	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>
